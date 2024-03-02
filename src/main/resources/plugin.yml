@@ -2,6 +2,7 @@ name: EndDisease
 version: '${project.version}'
 main: org.onysand.mc.enddisease.EndDisease
 api-version: '1.20'
+author: Onysand
 commands:
   disease:
     description: Disease command
