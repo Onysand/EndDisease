@@ -1,0 +1,78 @@
+messages:
+  # Заражение игрока командой /disease infect
+  infected-message: "{player} is successfully infected."
+
+  # Излечение игрока командой /disease cure
+  cured-message: "{player} is successfully cured."
+
+  # Сообщение излеченному командой /disease cure игроку
+  cured-by-staff: "You were cured by a staff."
+
+  # Сообщение игроку, зараженному ударом эндермена
+  infected-by-endermanHit: "You were infected by an enderman hit."
+
+  # Сообщение игроку, зараженному смертью он эндермена
+  infected-by-endermanKilling: "You were infected by an enderman kill."
+
+  # Сообщение игроку, зараженному другим игроком
+  infected-by-player: "You were infected by nearby player."
+
+  # Сообщение зараженному командой /disease infect игроку
+  infected-by-staff: "You were infected by a staff."
+
+  # Если игрок уже заражен
+  already-infected: "{player} is already infected."
+
+  # Если игрок не болен
+  not-infected: "{player} is not infected."
+
+  # Сообщение при пустом списке зараженных игроков
+  noOne-infected: "Currently no one is infected."
+
+  # Не указан игрок для выполнения команды
+  no-target: "You doesn't provide any player to execute command."
+
+  # Пример выполнения /disease cure
+  example-cure: "Example: /disease cure Tanos"
+
+  # Примервыполнения /disease infect
+  example-infect: "Example: /disease infect Gaben"
+
+  # Сообщение о болезни при заходе игрока
+  onLogin-disease: "You are ill..."
+
+  # Если проверенный предметом игрок заражен
+  checkedPlayer-isInfected: "{player} is infected."
+
+  # Если проверенный предметов игрок здоров
+  checkedPlayer-notInfected: "{player} is not infected."
+
+chances:
+  # Шанс быть зараженным от удара эндермена
+  infect-by-hitting: 5
+
+  # Шанс быть зараженным после смерти от эндермена
+  infect-by-death: 50
+
+  # Шанс быть зараженным от другого игрока
+  infect-player: 10
+
+utils:
+  # Радиус возможного распространения заражения на игроков
+  infect-radius: 20
+
+  # Каждые ? тиков проверка на заражение другого игрока в радиусе
+  infect-check-delay: 20
+
+  # Названия предметов, блокирующих заражение игроками
+  maskItems-names:
+    - Маска
+    - Респиратор
+    - Противогаз
+
+  # ID кастомного ItemModel предмета для проверки здоровья
+  checkItem-customModel: 2408
+
+  # Название предмета для проверки здоровья
+  # § знак для форматирования
+  checkItem-name: "§3§u§oDisease Checker"
