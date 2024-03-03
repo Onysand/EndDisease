@@ -1,10 +1,15 @@
 package org.onysand.mc.enddisease.utils;
 
 import com.google.gson.Gson;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.onysand.mc.enddisease.EndDisease;
 
 import java.io.*;
@@ -12,20 +17,17 @@ import java.util.*;
 
 public class InfectionManager {
 
-    private static final Set<UUID> infectedList = Collections.synchronizedSet(new HashSet<>());
 
+    private static final Set<UUID> infectedList = Collections.synchronizedSet(new HashSet<>());
     public static void addInfected(UUID player) {
         infectedList.add(player);
     }
-
     public static void cureInfected(UUID uuid) {
         infectedList.remove(uuid);
     }
-
     public static boolean isInfected(UUID uuid) {
         return infectedList.contains(uuid);
     }
-
     public static ArrayList<UUID> getAllInfected() {
         return new ArrayList<>(infectedList);
     }
@@ -36,9 +38,15 @@ public class InfectionManager {
 
         if (playerHelmet == null) return false;
         if (playerHelmet.getType() != Material.CARVED_PUMPKIN) return false;
-        if (maskItem.contains(playerHelmet.getItemMeta().getDisplayName())) return true;
 
-        return false;
+        ItemMeta itemMeta = playerHelmet.getItemMeta();
+        if (itemMeta == null) return false;
+
+        Component nameComponent = itemMeta.displayName();
+        if (nameComponent == null) return false;
+
+        String itemName = ((TextComponent) nameComponent.children().get(1)).content();
+        return maskItem.contains(itemName);
     }
 
     public static void loadInfected() throws IOException {

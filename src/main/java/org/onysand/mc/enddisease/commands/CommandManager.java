@@ -1,5 +1,7 @@
 package org.onysand.mc.enddisease.commands;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -16,8 +18,7 @@ import java.util.List;
 
 public class CommandManager implements TabExecutor {
 
-    private ArrayList<SubCommand> subcommands = new ArrayList<>();
-
+    private final ArrayList<SubCommand> subcommands = new ArrayList<>();
     public CommandManager() {
         subcommands.add(new InfectCommand());
         subcommands.add(new CureCommand());
@@ -37,11 +38,15 @@ public class CommandManager implements TabExecutor {
             }
         }
 
-        player.sendMessage("==============================");
+        TextComponent component = Component.text("==============================");
         for (int i = 0; i < subcommands.size(); i++) {
-            player.sendMessage(subcommands.get(i).getSyntax() + " - " + subcommands.get(i).getDescription());
+            component = component.append(Component.text(subcommands.get(i).getSyntax() + " - " + subcommands.get(i).getDescription()));
+            //player.sendMessage(subcommands.get(i).getSyntax() + " - " + subcommands.get(i).getDescription());
         }
-        player.sendMessage("==============================");
+
+        component = component.append(Component.text("=============================="));
+
+        player.sendMessage(component);
 
 
         return true;

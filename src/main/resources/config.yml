@@ -1,24 +1,24 @@
 messages:
   # Заражение игрока командой /disease infect
-  infected-message: "{player} is successfully infected."
+  #infected-message: "{player} is successfully infected."
 
   # Излечение игрока командой /disease cure
-  cured-message: "{player} is successfully cured."
+  #cured-message: "{player} is successfully cured."
 
   # Сообщение излеченному командой /disease cure игроку
-  cured-by-staff: "You were cured by a staff."
+  #cured-by-staff: "You were cured by a staff."
 
   # Сообщение игроку, зараженному ударом эндермена
-  infected-by-endermanHit: "You were infected by an enderman hit."
+  #infected-by-endermanHit: "You were infected by an enderman hit."
 
   # Сообщение игроку, зараженному смертью он эндермена
-  infected-by-endermanKilling: "You were infected by an enderman kill."
+  #infected-by-endermanKilling: "You were infected by an enderman kill."
 
   # Сообщение игроку, зараженному другим игроком
-  infected-by-player: "You were infected by nearby player."
+  #infected-by-player: "You were infected by nearby player."
 
   # Сообщение зараженному командой /disease infect игроку
-  infected-by-staff: "You were infected by a staff."
+  #infected-by-staff: "You were infected by a staff."
 
   # Если игрок уже заражен
   already-infected: "{player} is already infected."
@@ -39,7 +39,7 @@ messages:
   example-infect: "Example: /disease infect Gaben"
 
   # Сообщение о болезни при заходе игрока
-  onLogin-disease: "You are ill..."
+  #onLogin-disease: "You are ill..."
 
   # Если проверенный предметом игрок заражен
   checkedPlayer-isInfected: "{player} is infected."
@@ -75,4 +75,5 @@ utils:
 
   # Название предмета для проверки здоровья
   # § знак для форматирования
+  checkItem-type: STONE
   checkItem-name: "§3§u§oDisease Checker"

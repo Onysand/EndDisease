@@ -28,7 +28,7 @@ public class CheckInfected {
                     .filter(target -> Math.random() * 100 < EndDisease.getConfiguration().getDouble("chances.infect-player"))
                     .forEach(p -> {
                         InfectionManager.addInfected(p.getUniqueId());
-                        p.sendMessage(EndDisease.getConfiguration().getString("messages.infected-by-player"));
+                        p.sendMessage(EndDisease.getConfiguration().getString("messages.infected-by-player", "null"));
                     });
         }
     }
