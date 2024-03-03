@@ -2,15 +2,22 @@ package org.onysand.mc.enddisease.commands.subcommands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.commands.SubCommand;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.PluginConfig;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ListInfectedCommand implements SubCommand {
+    private final PluginConfig pluginConfig = EndDisease.getPlugin().getPluginConfig();
 
     @Override
     public String getName() {
@@ -32,7 +39,7 @@ public class ListInfectedCommand implements SubCommand {
         ArrayList<UUID> diseaseList = InfectionManager.getAllInfected();
 
         if (diseaseList.isEmpty()) {
-            player.sendMessage(EndDisease.getConfiguration().getString("messages.noOne-infected"));
+            player.sendMessage(pluginConfig.noOneInfectedMessage);
             return;
         }
 

@@ -10,22 +10,15 @@ import org.onysand.mc.enddisease.EndDisease;
 import java.util.logging.Logger;
 
 public class Utils {
+    private static ItemStack checkItem;
 
-    private final FileConfiguration config;
-    private final Logger logger;
+    private static void initCheckItem() {
+        PluginConfig pluginConfig = EndDisease.getPluginConfig();
+        Logger logger = EndDisease.getPlugin().getLogger();
 
-    private ItemStack checkItem;
-
-    public Utils(EndDisease plugin) {
-        this.config = plugin.getConfig();
-        this.logger = plugin.getLogger();
-        initCheckItem();
-    }
-
-    private void initCheckItem() {
-        String configMaterial = config.getString("utils.checkItem-type", "STONE");
-        String configName = config.getString("utils.checkItem-name", "NULL");
-        int customModel = config.getInt("utils.checkItem-customModel", 1);
+        String configMaterial = pluginConfig.checkItemMaterial;
+        String configName = pluginConfig.checkItemName;
+        int customModel = pluginConfig.checkItemCustomModelID;
 
         Material material;
 
@@ -33,11 +26,12 @@ public class Utils {
             material = Material.valueOf(configMaterial);
 
         } catch (IllegalArgumentException e) {
-            logger.severe(e.getMessage());//ПОТОМ ВЫРУБАТЬ ПЛАГИН
+            logger.severe(e.getMessage());
+            EndDisease.getPlugin().setEnabled(false);
             return;
         }
 
-        checkItem = new ItemStack(material); //П
+        checkItem = new ItemStack(material);
         ItemMeta itemMeta = checkItem.getItemMeta();
 
         itemMeta.displayName(Component.text(configName));
@@ -47,7 +41,8 @@ public class Utils {
 
     }
 
-    public ItemStack getCheckItem() {
+    public static ItemStack getCheckItem() {
+        if (checkItem == null) initCheckItem();
         return checkItem;
     }
 }

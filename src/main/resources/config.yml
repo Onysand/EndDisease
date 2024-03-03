@@ -1,12 +1,15 @@
 messages:
   # Заражение игрока командой /disease infect
-  #infected-message: "{player} is successfully infected."
+  # Принимает <player> тег
+  infect-player: "<player> is successfully infected."
 
   # Излечение игрока командой /disease cure
-  #cured-message: "{player} is successfully cured."
+  # Принимает <player> тег
+  cure-player: "<player> is successfully cured."
 
-  # Сообщение излеченному командой /disease cure игроку
-  #cured-by-staff: "You were cured by a staff."
+  # Сообщение излеченному игроку
+  # Принимает <player> тег
+  cured: "You were cured by come reason."
 
   # Сообщение игроку, зараженному ударом эндермена
   #infected-by-endermanHit: "You were infected by an enderman hit."
@@ -20,11 +23,17 @@ messages:
   # Сообщение зараженному командой /disease infect игроку
   #infected-by-staff: "You were infected by a staff."
 
+  # Сообщение игроку, который был заражен
+  # Принимает <player> тег
+  infected: "You were infected for some reason."
+
   # Если игрок уже заражен
-  already-infected: "{player} is already infected."
+  # Принимает <player> тег
+  already-infected: "<player> is already infected."
 
   # Если игрок не болен
-  not-infected: "{player} is not infected."
+  # Принимает <player> тег
+  not-infected: "<player> is not infected."
 
   # Сообщение при пустом списке зараженных игроков
   noOne-infected: "Currently no one is infected."
@@ -32,20 +41,26 @@ messages:
   # Не указан игрок для выполнения команды
   no-target: "You doesn't provide any player to execute command."
 
+  # Неправильно указан ник цели
+  # Принимает <player> тег
+  noSuch-player: "Don't found any player with name <player>"
+
   # Пример выполнения /disease cure
   example-cure: "Example: /disease cure Tanos"
 
   # Примервыполнения /disease infect
   example-infect: "Example: /disease infect Gaben"
 
-  # Сообщение о болезни при заходе игрока
-  #onLogin-disease: "You are ill..."
+  # Сообщение о болезни
+  disease: "You are ill..."
 
   # Если проверенный предметом игрок заражен
-  checkedPlayer-isInfected: "{player} is infected."
+  # Принимает <player> тег
+  checkedPlayer-isInfected: "<player> is infected."
 
   # Если проверенный предметов игрок здоров
-  checkedPlayer-notInfected: "{player} is not infected."
+  # Принимает <player> тег
+  checkedPlayer-notInfected: "<player> is not infected."
 
 chances:
   # Шанс быть зараженным от удара эндермена
@@ -55,7 +70,10 @@ chances:
   infect-by-death: 50
 
   # Шанс быть зараженным от другого игрока
-  infect-player: 10
+  infect-by-player: 10
+
+  # Шанс получить сообщение о заражении
+  get-diseaseMessage: 5
 
 utils:
   # Радиус возможного распространения заражения на игроков
@@ -71,9 +89,10 @@ utils:
     - Противогаз
 
   # ID кастомного ItemModel предмета для проверки здоровья
-  checkItem-customModel: 2408
+  checkItem-customModel: 1
 
-  # Название предмета для проверки здоровья
-  # § знак для форматирования
+  # Material предмета проверки здоровья
   checkItem-type: STONE
-  checkItem-name: "§3§u§oDisease Checker"
+
+  # Название для выдачи предмета проверки здоровья
+  checkItem-name: "Disease Checker"

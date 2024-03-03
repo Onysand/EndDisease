@@ -11,7 +11,8 @@ import java.util.*;
 public class CheckInfected {
     public static void checkInfected() {
         ArrayList<UUID> listInfected = InfectionManager.getAllInfected();
-        final double distanceSquared = Math.pow(EndDisease.getConfiguration().getDouble("utils.infect-radius"), 2);
+        final PluginConfig pluginConfig = EndDisease.getPluginConfig();
+        final double distanceSquared = Math.pow(pluginConfig.infectRadius, 2);
 
         for (UUID playerID : listInfected) {
             Player infector = Bukkit.getPlayer(playerID);
@@ -25,10 +26,10 @@ public class CheckInfected {
                     .filter(target -> target.getLocation().distanceSquared(infectorLocation) < distanceSquared)
                     .filter(target -> !InfectionManager.isInfected(target.getUniqueId()))
                     .filter(target -> !InfectionManager.isProtectedFromDisease(target))
-                    .filter(target -> Math.random() * 100 < EndDisease.getConfiguration().getDouble("chances.infect-player"))
+                    .filter(target -> Math.random() * 100 < pluginConfig.infectByPlayerChance)
                     .forEach(p -> {
                         InfectionManager.addInfected(p.getUniqueId());
-                        p.sendMessage(EndDisease.getConfiguration().getString("messages.infected-by-player", "null"));
+                        p.sendMessage(pluginConfig.infectedMessage);
                     });
         }
     }

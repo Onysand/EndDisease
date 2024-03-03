@@ -4,19 +4,16 @@ import com.google.gson.Gson;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.onysand.mc.enddisease.EndDisease;
 
 import java.io.*;
 import java.util.*;
 
 public class InfectionManager {
-
+    private static final PluginConfig pluginConfig = EndDisease.getPluginConfig();
 
     private static final Set<UUID> infectedList = Collections.synchronizedSet(new HashSet<>());
     public static void addInfected(UUID player) {
@@ -33,7 +30,6 @@ public class InfectionManager {
     }
 
     public static boolean isProtectedFromDisease(Player player) {
-        ArrayList<String> maskItem = new ArrayList<>(EndDisease.getConfiguration().getStringList("utils.maskItems-names"));
         ItemStack playerHelmet = player.getInventory().getHelmet();
 
         if (playerHelmet == null) return false;
@@ -46,7 +42,7 @@ public class InfectionManager {
         if (nameComponent == null) return false;
 
         String itemName = ((TextComponent) nameComponent.children().get(1)).content();
-        return maskItem.contains(itemName);
+        return pluginConfig.maskItemNames.contains(itemName);
     }
 
     public static void loadInfected() throws IOException {

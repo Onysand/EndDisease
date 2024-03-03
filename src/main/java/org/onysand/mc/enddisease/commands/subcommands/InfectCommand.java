@@ -1,12 +1,18 @@
 package org.onysand.mc.enddisease.commands.subcommands;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.commands.SubCommand;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.PluginConfig;
+
 
 public class InfectCommand implements SubCommand {
+    private final PluginConfig pluginConfig = EndDisease.getPluginConfig();
+    private final MiniMessage mm = MiniMessage.miniMessage();
 
     @Override
     public String getName() {
@@ -26,22 +32,27 @@ public class InfectCommand implements SubCommand {
     @Override
     public void perform(Player player, String[] args) {
         if (args.length > 1) {
-            Player target = Bukkit.getPlayer(args[1]);
-
-            if (InfectionManager.isInfected(target.getUniqueId())) {
-                player.sendMessage(EndDisease.getConfiguration().getString("messages.already-infected").replace("{player}", target.getName()));
-
+            if (Bukkit.getPlayer(args[1]) == null) {
+                player.sendMessage(mm.deserialize(pluginConfig.noSuchPlayerMessage, Placeholder.parsed("player", args[1])));
                 return;
             }
 
-            player.sendMessage(EndDisease.getConfiguration().getString("messages.infected-message").replace("{player}", target.getName()));
+            Player target = Bukkit.getPlayer(args[1]);
 
-            target.sendMessage(EndDisease.getConfiguration().getString("messages.infected-by-staff"));
+            if (InfectionManager.isInfected(target.getUniqueId())) {
+                player.sendMessage(mm.deserialize(pluginConfig.alreadyInfectedMessage, Placeholder.parsed("player", target.getName())));
+                return;
+            }
+
+            player.sendMessage(mm.deserialize(pluginConfig.infectPlayerMessage, Placeholder.parsed("player", target.getName())));
+
+
+            target.sendMessage(mm.deserialize(pluginConfig.infectedMessage, Placeholder.parsed("player", player.getName())));
 
             InfectionManager.addInfected(target.getUniqueId());
         } else if (args.length == 1) {
-            player.sendMessage(EndDisease.getConfiguration().getString("messages.no-target"));
-            player.sendMessage(EndDisease.getConfiguration().getString("messages.example-infect"));
+            player.sendMessage(pluginConfig.noTargetMessage);
+            player.sendMessage(pluginConfig.exampleInfectMessage);
         }
     }
 }
