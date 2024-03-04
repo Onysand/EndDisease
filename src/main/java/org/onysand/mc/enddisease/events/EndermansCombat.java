@@ -19,6 +19,7 @@ public class EndermansCombat implements Listener {
     private final PluginConfig pluginConfig;
     private final Random random;
     private final BukkitScheduler scheduler;
+    private final EntityType infectorEntityType;
 
     public EndermansCombat() {
         this.plugin = EndDisease.getPlugin();
@@ -33,12 +34,18 @@ public class EndermansCombat implements Listener {
     public void endermanCombatEvent(EntityDamageByEntityEvent e) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-            if (e.getEntity() instanceof Player player && !InfectionManager.isInfected(player.getUniqueId()) && e.getDamager().getType() == EntityType.ENDERMAN) {
-                if (random.nextInt(100) < pluginConfig.infectByHittingChance) {
-                    InfectionManager.addInfected(player.getUniqueId());
-                    player.sendMessage(pluginConfig.infectedMessage);
-                }
-            }
+            if (!(e.getEntity() instanceof Player player)) return;
+            if (player.isDead()) return;
+            if (InfectionManager.isInfected(player.getUniqueId())) return;
+
+            Entity damager = e.getDamager();
+            if (!(damager.getType() == infectorEntityType)) return;
+            if (random.nextInt(100) >= pluginConfig.infectByHittingChance) return;
+
+            InfectionManager.addInfected(player.getUniqueId());
+
+            if (!(player.hasPermission("disease.")))
+            player.sendMessage(pluginConfig.infectedMessage);
         });
     }
 
@@ -51,11 +58,11 @@ public class EndermansCombat implements Listener {
             if (!player.isDead()) return;
 
             Entity damager = e.getDamager();
-            if (!(damager instanceof Enderman)) return;
+            if (!(damager.getType() == infectorEntityType)) return;
 
             UUID uuid = player.getUniqueId();
             if (InfectionManager.isInfected(uuid)) return;
-            if (random.nextInt(100) <= pluginConfig.infectByDeathChance) return;
+            if (random.nextInt(100) >= pluginConfig.infectByDeathChance) return;
 
             InfectionManager.addInfected(player.getUniqueId());
             player.sendMessage(pluginConfig.infectedMessage);

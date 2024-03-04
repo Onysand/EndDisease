@@ -6,3 +6,25 @@ author: Onysand
 commands:
   disease:
     description: Disease command
+permissions:
+  disease.getInfected-message:
+    description: get message about getting infected
+  disease.list:
+    description: /disease list
+  disease.checkerItem:
+    description: /disease checkerItem
+  disease.infect:
+    description: /disease infect
+  disease.cure:
+    description: /disease cure
+  disease.getscheduledmessage:
+    description: Scheduled message about illness
+  disease.*:
+    description: all /disease commands access
+    children:
+      disease.getInfected-message: true
+      disease.list: true
+      disease.checkerItem: true
+      disease.infect: true
+      disease.cure: true
+      disease.getscheduledmessage: true

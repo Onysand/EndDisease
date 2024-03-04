@@ -16,9 +16,10 @@ public class MessageScheduler {
 
         Audience.audience(
                 Bukkit.getOnlinePlayers().stream()
-                    .filter(it -> InfectionManager.isInfected(it.getUniqueId()))
-                    .filter(it -> random.nextInt(100) < pluginConfig.getDiseaseMessageChance)
-                    .toList()
+                        .filter(it -> it.hasPermission("disease.getscheduledmessage"))
+                        .filter(it -> InfectionManager.isInfected(it.getUniqueId()))
+                        .filter(it -> random.nextInt(100) < pluginConfig.getDiseaseMessageChance)
+                        .toList()
         ).sendMessage(MiniMessage.miniMessage().deserialize(pluginConfig.diseaseMessage));
     }
 }

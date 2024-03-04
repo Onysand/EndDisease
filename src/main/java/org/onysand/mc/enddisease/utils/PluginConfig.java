@@ -30,6 +30,7 @@ public class PluginConfig {
     public final String checkedPlayerIsInfectedMessage = config.getString("messages.checkedPlayer-isInfected", "check config: messages.checkedPlayer-isInfected");
     public final String checkedPlayerNotInfectedMessage = config.getString("messages.checkedPlayer-notInfected", "check config: messages.checkedPlayer-notInfected");
     public final String noSuchPlayerMessage = config.getString("messages.noSuch-player", "check config: messages.noSuch-player");
+    public final String noPermissionMessage = config.getString("messages.no-permission");
 
     // CHANCES
     public final double infectByHittingChance = config.getDouble("chances.infect-by-hitting");
@@ -45,4 +46,5 @@ public class PluginConfig {
     public final int checkItemCustomModelID = config.getInt("utils.checkItem-customModel");
     public final List<Integer> checkItemCustomModelIDList = config.getIntegerList("utils.checkItem-customModel");
     public final String checkItemName = config.getString("utils.checkItem-name");
+    public final String entityInfectorType = config.getString("utils.entityInfector", "Enderman");
 }

@@ -31,6 +31,12 @@ public class InfectCommand implements SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
+
+        if (!(player.hasPermission("disease." + getName()))) {
+            player.sendMessage(MiniMessage.miniMessage().deserialize(pluginConfig.noPermissionMessage, Placeholder.parsed("command", getName())));
+            return;
+        }
+
         if (args.length > 1) {
             if (Bukkit.getPlayer(args[1]) == null) {
                 player.sendMessage(mm.deserialize(pluginConfig.noSuchPlayerMessage, Placeholder.parsed("player", args[1])));

@@ -57,6 +57,7 @@ public class CommandManager implements TabExecutor {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length <= 1) return subcommands.stream()
                 .map(SubCommand::getName)
+                .filter(name -> sender.hasPermission("disease." + name))
                 .filter(str -> str.startsWith(args[0]))
                 .toList();
 

@@ -62,6 +62,8 @@ messages:
   # Принимает <player> тег
   checkedPlayer-notInfected: "<player> is not infected."
 
+  no-permission: "<dark_red>No permission to execute <command> command</dark_red>"
+
 chances:
   # Шанс быть зараженным от удара эндермена
   infect-by-hitting: 5
