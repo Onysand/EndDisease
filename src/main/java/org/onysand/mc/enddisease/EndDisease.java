@@ -3,6 +3,9 @@ package org.onysand.mc.enddisease;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.onysand.mc.enddisease.commands.CommandManager;
+import org.onysand.mc.enddisease.schedulers.CheckInfected;
+import org.onysand.mc.enddisease.schedulers.DebuffScheduler;
+import org.onysand.mc.enddisease.schedulers.MessageScheduler;
 import org.onysand.mc.enddisease.events.EndermansCombat;
 import org.onysand.mc.enddisease.events.PlayerInteractItem;
 import org.onysand.mc.enddisease.utils.*;
@@ -20,24 +23,9 @@ public final class EndDisease extends JavaPlugin {
         plugin = this;
         saveDefaultConfig();
 
-        this.pluginConfig = new PluginConfig(this);
-        this.random = new Random();
-
-        CommandManager commandManager = new CommandManager();
-        this.getCommand("disease").setExecutor(commandManager);
-        this.getCommand("disease").setTabCompleter(commandManager);
-
-        getServer().getPluginManager().registerEvents(new EndermansCombat(), this);
-        getServer().getPluginManager().registerEvents(new PlayerInteractItem(), this);
-
-        try {
-            InfectionManager.loadInfected();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        getServer().getScheduler().runTaskTimerAsynchronously(this, MessageScheduler::sendMessages, 0, 20 * 120L);
-        getServer().getScheduler().runTaskTimerAsynchronously(this, CheckInfected::checkInfected, 0L, (long) pluginConfig.infectCheckDelay);
+        registerEvents();
+        registerCommands();
+        loadData();
     }
 
     @Override

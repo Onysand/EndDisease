@@ -1,5 +1,6 @@
 package org.onysand.mc.enddisease.events;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.MessageType;
 import org.onysand.mc.enddisease.utils.PluginConfig;
 
 
@@ -22,9 +24,9 @@ public class PlayerInteractItem implements Listener {
     private final MiniMessage mm = MiniMessage.miniMessage();
 
 
-    public PlayerInteractItem() {
-        this.plugin = EndDisease.getPlugin();
-        this.pluginConfig = EndDisease.getPluginConfig();
+    public PlayerInteractItem(EndDisease plugin) {
+        this.plugin = plugin;
+        this.pluginConfig = plugin.getPluginConfig();
         this.scheduler = Bukkit.getScheduler();
     }
 
@@ -34,13 +36,13 @@ public class PlayerInteractItem implements Listener {
             if (e.getRightClicked() instanceof Player clickedPlayer && e.getHand() == EquipmentSlot.HAND) {
                 Player player = e.getPlayer();
 
-                if (pluginConfig.checkItemCustomModelIDList.contains(player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData())){
+                if (player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == pluginConfig.getCheckCMD()){
 
-                    String message = InfectionManager.isInfected(clickedPlayer.getUniqueId())
-                            ? pluginConfig.checkedPlayerIsInfectedMessage
-                            : pluginConfig.checkedPlayerNotInfectedMessage;
+                    Component message = InfectionManager.isInfected(clickedPlayer.getUniqueId())
+                            ? pluginConfig.getMessage(MessageType.checkedPlayerIsInfectedMessage, clickedPlayer.getName())
+                            : pluginConfig.getMessage(MessageType.checkedPlayerNotInfectedMessage, clickedPlayer.getName());
 
-                    player.sendMessage(mm.deserialize(message, Placeholder.parsed("player", clickedPlayer.getName())));
+                    player.sendMessage(message);
                 }
             }
         });

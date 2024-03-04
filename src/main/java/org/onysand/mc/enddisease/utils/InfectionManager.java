@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 public class InfectionManager {
-    private static final PluginConfig pluginConfig = EndDisease.getPluginConfig();
+    private static final PluginConfig pluginConfig = EndDisease.getPlugin().getPluginConfig();
 
     private static final Set<UUID> infectedList = Collections.synchronizedSet(new HashSet<>());
     public static void addInfected(UUID player) {
@@ -42,7 +42,7 @@ public class InfectionManager {
         if (nameComponent == null) return false;
 
         String itemName = ((TextComponent) nameComponent.children().get(1)).content();
-        return pluginConfig.maskItemNames.contains(itemName);
+        return pluginConfig.getMaskItemNames().contains(itemName);
     }
 
     public static void loadInfected() throws IOException {

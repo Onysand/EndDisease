@@ -1,19 +1,22 @@
 package org.onysand.mc.enddisease.commands.subcommands;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.commands.SubCommand;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.MessageType;
 import org.onysand.mc.enddisease.utils.PluginConfig;
 
 
 public class CureCommand implements SubCommand {
 
-    private final PluginConfig pluginConfig = EndDisease.getPlugin().getPluginConfig();
-    private final MiniMessage mm = MiniMessage.miniMessage();
+    private final PluginConfig pluginConfig;
+    public CureCommand(EndDisease plugin) {
+        this.pluginConfig = plugin.getPluginConfig();
+    }
 
     @Override
     public String getName() {
@@ -31,33 +34,43 @@ public class CureCommand implements SubCommand {
     }
 
     @Override
-    public void perform(Player player, String[] args) {
+    public void perform(Player sender, String[] args) {
 
-        if (!(player.hasPermission("disease." + getName()))) {
-            player.sendMessage(MiniMessage.miniMessage().deserialize(pluginConfig.noPermissionMessage, Placeholder.parsed("command", getName())));
+        String permission = "disease." + getName();
+        if (!sender.hasPermission(permission)) {
+            sender.sendMessage(pluginConfig.getMessage(MessageType.noPermissionMessage, null));
             return;
         }
 
         if (args.length > 1) {
-            if (Bukkit.getPlayer(args[1]) == null) {
-                player.sendMessage(mm.deserialize(pluginConfig.noSuchPlayerMessage, Placeholder.parsed("player", args[1])));
+
+            String targetName = args[1];
+            Player targetPlayer = Bukkit.getPlayer(targetName);
+
+
+            if (targetPlayer == null) {
+                sender.sendMessage(pluginConfig.getMessage(MessageType.noSuchPlayerMessage, args[1]));
                 return;
             }
 
-            Player target = Bukkit.getPlayer(args[1]);
-
-            if (!InfectionManager.isInfected(target.getUniqueId())) {
-                player.sendMessage(mm.deserialize(pluginConfig.notInfectedMessage, Placeholder.parsed("player", target.getName())));
+            if (!(InfectionManager.isInfected(targetPlayer.getUniqueId()))) {
+                sender.sendMessage(pluginConfig.getMessage(MessageType.notInfectedMessage, targetName));
                 return;
             }
 
-            InfectionManager.cureInfected(target.getUniqueId());
 
-            player.sendMessage(mm.deserialize(pluginConfig.curePlayerMessage, Placeholder.parsed("player", target.getName())));
-            target.sendMessage(mm.deserialize(pluginConfig.curedMessage, Placeholder.parsed("player", player.getName())));
+            sender.sendMessage(pluginConfig.getMessage(MessageType.curePlayerMessage, targetName));
+
+            if (targetPlayer.hasPermission(permission)) {
+                targetPlayer.sendMessage(pluginConfig.getMessage(MessageType.curedMessage, sender.getName()));
+            }
+
+            InfectionManager.cureInfected(targetPlayer.getUniqueId());
         } else if (args.length == 1) {
-            player.sendMessage(pluginConfig.noTargetMessage);
-            player.sendMessage(pluginConfig.exampleCureMessage);
+
+            Component message = pluginConfig.getMessage(MessageType.noTargetMessage, null).append(Component.text("\n")).append(pluginConfig.getMessage(MessageType.exampleCureMessage, null));
+
+            sender.sendMessage(message);
         }
     }
 }

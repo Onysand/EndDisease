@@ -62,7 +62,7 @@ messages:
   # Принимает <player> тег
   checkedPlayer-notInfected: "<player> is not infected."
 
-  no-permission: "<dark_red>No permission to execute <command> command</dark_red>"
+  no-permission: "<dark_red>No permission to execute command</dark_red>"
 
 chances:
   # Шанс быть зараженным от удара эндермена
@@ -74,15 +74,18 @@ chances:
   # Шанс быть зараженным от другого игрока
   infect-by-player: 10
 
-  # Шанс получить сообщение о заражении
+  # Шанс получить сообщение о заражении раз в 10 сек (изменяется в schedulers-delay)
   get-diseaseMessage: 5
+
+  # Шанс получить дебаф от заражения раз в 10 сек (изменяется в schedulers-delay)
+  get-debuffChance: 5
 
 utils:
   # Радиус возможного распространения заражения на игроков
   infect-radius: 20
 
-  # Каждые ? тиков проверка на заражение другого игрока в радиусе
-  infect-check-delay: 20
+  # Задержка в секундах
+  schedulers-delay: 10
 
   # Названия предметов, блокирующих заражение игроками
   maskItems-names:

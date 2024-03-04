@@ -1,25 +1,22 @@
 package org.onysand.mc.enddisease.commands.subcommands;
 
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.commands.SubCommand;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.MessageType;
 import org.onysand.mc.enddisease.utils.PluginConfig;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class ListInfectedCommand implements SubCommand {
-    private final PluginConfig pluginConfig = EndDisease.getPlugin().getPluginConfig();
+    private final PluginConfig pluginConfig;
+    public ListInfectedCommand(EndDisease plugin) {
+        this.pluginConfig = plugin.getPluginConfig();
+    }
 
     @Override
     public String getName() {
@@ -41,12 +38,12 @@ public class ListInfectedCommand implements SubCommand {
         ArrayList<UUID> diseaseList = InfectionManager.getAllInfected();
 
         if (!(player.hasPermission("disease." + getName()))) {
-            player.sendMessage(MiniMessage.miniMessage().deserialize(pluginConfig.noPermissionMessage, Placeholder.parsed("command", getName())));
+            player.sendMessage(pluginConfig.getMessage(MessageType.noPermissionMessage, null));
             return;
         }
 
         if (diseaseList.isEmpty()) {
-            player.sendMessage(pluginConfig.noOneInfectedMessage);
+            player.sendMessage(pluginConfig.getMessage(MessageType.noOneInfectedMessage, null));
             return;
         }
 

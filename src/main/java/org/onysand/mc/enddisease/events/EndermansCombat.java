@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.MessageType;
 import org.onysand.mc.enddisease.utils.PluginConfig;
 
 import java.util.Random;
@@ -19,12 +20,11 @@ public class EndermansCombat implements Listener {
     private final PluginConfig pluginConfig;
     private final Random random;
     private final BukkitScheduler scheduler;
-    private final EntityType infectorEntityType;
 
-    public EndermansCombat() {
-        this.plugin = EndDisease.getPlugin();
-        this.pluginConfig = EndDisease.getPluginConfig();
-        this.random = EndDisease.getRandom();
+    public EndermansCombat(EndDisease plugin) {
+        this.plugin = plugin;
+        this.pluginConfig = plugin.getPluginConfig();
+        this.random = plugin.getRandom();
         this.scheduler = Bukkit.getScheduler();
 
     }
@@ -39,13 +39,12 @@ public class EndermansCombat implements Listener {
             if (InfectionManager.isInfected(player.getUniqueId())) return;
 
             Entity damager = e.getDamager();
-            if (!(damager.getType() == infectorEntityType)) return;
-            if (random.nextInt(100) >= pluginConfig.infectByHittingChance) return;
+            if (!(damager.getType() == pluginConfig.getEntityInfectorType())) return;
+            if (random.nextInt(100) >= pluginConfig.getInfectByHittingChance()) return;
 
             InfectionManager.addInfected(player.getUniqueId());
 
-            if (!(player.hasPermission("disease.")))
-            player.sendMessage(pluginConfig.infectedMessage);
+            if (player.hasPermission("disease.getInfected-message")) player.sendMessage(pluginConfig.getMessage(MessageType.infectedMessage, null));
         });
     }
 
@@ -58,14 +57,14 @@ public class EndermansCombat implements Listener {
             if (!player.isDead()) return;
 
             Entity damager = e.getDamager();
-            if (!(damager.getType() == infectorEntityType)) return;
+            if (!(damager.getType() == pluginConfig.getEntityInfectorType())) return;
 
             UUID uuid = player.getUniqueId();
             if (InfectionManager.isInfected(uuid)) return;
-            if (random.nextInt(100) >= pluginConfig.infectByDeathChance) return;
+            if (random.nextInt(100) >= pluginConfig.getInfectByDeathChance()) return;
 
             InfectionManager.addInfected(player.getUniqueId());
-            player.sendMessage(pluginConfig.infectedMessage);
+            if (player.hasPermission("disease.getInfected-message")) player.sendMessage(pluginConfig.getMessage(MessageType.infectedMessage, null));
 
         }, 2L);
     }

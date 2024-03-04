@@ -1,11 +1,14 @@
-package org.onysand.mc.enddisease.utils;
+package org.onysand.mc.enddisease.schedulers;
 
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.onysand.mc.enddisease.EndDisease;
+import org.onysand.mc.enddisease.utils.InfectionManager;
+import org.onysand.mc.enddisease.utils.MessageType;
+import org.onysand.mc.enddisease.utils.PluginConfig;
 
 import java.util.*;
 

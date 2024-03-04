@@ -13,23 +13,11 @@ public class Utils {
     private static ItemStack checkItem;
 
     private static void initCheckItem() {
-        PluginConfig pluginConfig = EndDisease.getPluginConfig();
-        Logger logger = EndDisease.getPlugin().getLogger();
+        PluginConfig pluginConfig = EndDisease.getPlugin().getPluginConfig();
 
-        String configMaterial = pluginConfig.checkItemMaterial;
-        String configName = pluginConfig.checkItemName;
-        int customModel = pluginConfig.checkItemCustomModelID;
-
-        Material material;
-
-        try {
-            material = Material.valueOf(configMaterial);
-
-        } catch (IllegalArgumentException e) {
-            logger.severe(e.getMessage());
-            EndDisease.getPlugin().setEnabled(false);
-            return;
-        }
+        Material material = pluginConfig.getItemMaterial();
+        String configName = pluginConfig.getCheckItemName();
+        int customModel = pluginConfig.getCheckCMD();
 
         checkItem = new ItemStack(material);
         ItemMeta itemMeta = checkItem.getItemMeta();
