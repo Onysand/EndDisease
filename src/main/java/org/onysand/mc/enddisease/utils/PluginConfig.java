@@ -58,6 +58,12 @@ public class PluginConfig {
     public double getGetDebuffChance() {
         return getDebuffChance;
     }
+    public int getConfusionDurationOrigin() {
+        return confusionDurationOrigin;
+    }
+    public int getConfusionDurationBound() {
+        return confusionDurationBound;
+    }
 
     public double getInfectRadius() {
         return infectRadius;
@@ -107,6 +113,8 @@ public class PluginConfig {
         this.getDiseaseMessageChance = config.getDouble("chances.get-diseaseMessage", 5);
         this.getDebuffChance = config.getDouble("chancesget-debuffChance", 5);
         this.infectRadius = config.getDouble("utils.infect-radius", 20);
+        this.confusionDurationOrigin = config.getInt("utils.confusionDuration-origin", 3);
+        this.confusionDurationBound = config.getInt("utils.confusionDuration-bound", 10);
         this.schedulersDelay = config.getLong("utils.schedulers-delay", 5) * 20;
         this.checkItemCustomModelID = config.getInt("utils.checkItem-customModel", 1);
         this.checkItemName = config.getString("utils.checkItem-name");

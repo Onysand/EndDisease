@@ -101,3 +101,10 @@ utils:
 
   # Название для выдачи предмета проверки здоровья
   checkItem-name: "Disease Checker"
+
+  # Длительность эффекта тошноты при заражении (рандом от и до)
+
+  # ОТ
+  confusionDuration-origin: 3
+  # ДО
+  confusionDuration-bound: 10

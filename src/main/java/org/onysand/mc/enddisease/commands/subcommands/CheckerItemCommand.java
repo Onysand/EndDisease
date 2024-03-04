@@ -37,6 +37,6 @@ public class CheckerItemCommand implements SubCommand {
             return;
         }
 
-        player.getInventory().addItem(Utils.getCheckItem().clone());
+        player.getInventory().addItem(Utils.getCheckItem());
     }
 }

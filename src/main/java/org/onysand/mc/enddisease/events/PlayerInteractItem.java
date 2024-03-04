@@ -8,7 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.onysand.mc.enddisease.EndDisease;
 import org.onysand.mc.enddisease.utils.InfectionManager;
@@ -34,6 +36,9 @@ public class PlayerInteractItem implements Listener {
     public void PlayerInteractItem (PlayerInteractEntityEvent e) {
         scheduler.runTaskAsynchronously(plugin, () -> {
             if (e.getRightClicked() instanceof Player clickedPlayer && e.getHand() == EquipmentSlot.HAND) {
+
+                if (!e.getPlayer().getInventory().getItemInMainHand().hasItemMeta()) return;
+
                 Player player = e.getPlayer();
 
                 if (player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == pluginConfig.getCheckCMD()){
@@ -46,6 +51,5 @@ public class PlayerInteractItem implements Listener {
                 }
             }
         });
-
     }
 }

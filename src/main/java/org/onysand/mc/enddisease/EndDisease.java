@@ -26,6 +26,7 @@ public final class EndDisease extends JavaPlugin {
         registerEvents();
         registerCommands();
         loadData();
+        startSchedulers();
     }
 
     @Override

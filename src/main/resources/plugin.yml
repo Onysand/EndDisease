@@ -19,6 +19,7 @@ permissions:
     description: /disease cure
   disease.getscheduledmessage:
     description: Scheduled message about illness
+    default: true
   disease.*:
     description: all /disease commands access
     children:
