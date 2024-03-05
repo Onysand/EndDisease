@@ -2,67 +2,90 @@ messages:
   # Заражение игрока командой /disease infect
   # Принимает <player> тег
   infect-player: "<player> is successfully infected."
+  # infect-player: "Темные силы овладевают телом <player>, заражая его в своем зловещем порыве."
 
   # Излечение игрока командой /disease cure
   # Принимает <player> тег
   cure-player: "<player> is successfully cured."
+  # cure-player: "Свет возвращает <player> обратно к здоровью, изгоняя из него зловещую тьму."
 
   # Сообщение излеченному игроку
   # Принимает <player> тег
   cured: "You were cured by come reason."
+  # cured: "Свет нисходит на вас, излечивая ваше тело от зловещей тьмы. Ваше здоровье возвращается, и вы чувствуете себя сильнее, чем когда-либо."
 
   # Сообщение игроку, зараженному ударом эндермена
+  # NOT WORKING
   #infected-by-endermanHit: "You were infected by an enderman hit."
+  # infected-by-endermanHit: "Странные силы нападают на вас, когда вы чувствуете прикосновение эндермена. Силы тьмы проникают в ваше тело, заражая вас."
 
   # Сообщение игроку, зараженному смертью он эндермена
+  # NOT WORKING
   #infected-by-endermanKilling: "You were infected by an enderman kill."
+  # infected-by-endermanKilling: "Вы видите, как эндермен погибает, но в этот момент странные энергии передаются вам. Ваше тело наполняется зловещей силой, и вы осознаете, что заражены смертью этого таинственного существа."
 
   # Сообщение игроку, зараженному другим игроком
+  # NOT WORKING
   #infected-by-player: "You were infected by nearby player."
+  # infected-by-player: "Вы чувствуете, как вокруг вас распространяется странная энергия, и вдруг понимаете, что заражены влиянием соседнего игрока."
 
   # Сообщение зараженному командой /disease infect игроку
+  # NOT WORKING
   #infected-by-staff: "You were infected by a staff."
+  # infected-by-staff: "В вашем теле внезапно пробуждаются странные силы, и вы осознаете, что были заражены действием администратора."
 
   # Сообщение игроку, который был заражен
   # Принимает <player> тег
   infected: "You were infected for some reason."
+  # infected: "Темные силы проникают в ваше тело, обволакивая вас темным туманом. Вы чувствуете, как зловещая энергия проникает в ваши кости. Вас охватывает чувство недуга, вы заражены."
 
   # Если игрок уже заражен
   # Принимает <player> тег
   already-infected: "<player> is already infected."
+  # already-infected: "Темная сила уже проникает в тело <player>. Дополнительное воздействие не требуется."
 
   # Если игрок не болен
   # Принимает <player> тег
   not-infected: "<player> is not infected."
+  # not-infected: "Тело <player> свободно от влияния темных сил."
 
   # Сообщение при пустом списке зараженных игроков
   noOne-infected: "Currently no one is infected."
+  # noOne-infected: "В настоящее время никто не заражен темной силой."
 
   # Не указан игрок для выполнения команды
   no-target: "You doesn't provide any player to execute command."
+  # no-target: "Вы не указали игрока для выполнения команды. Темная сила остается неосвоенной."
 
   # Неправильно указан ник цели
   # Принимает <player> тег
   noSuch-player: "Don't found any player with name <player>"
+  # noSuch-player: "Игрок с именем <player> не найден в базе данных. Возможно, он ушел во тьму."
 
   # Пример выполнения /disease cure
   example-cure: "Example: /disease cure Tanos"
+  # example-cure: "Пример: /disease cure Tanos - попытка освободить Таноса от темной силы."
 
   # Примервыполнения /disease infect
   example-infect: "Example: /disease infect Gaben"
+  # example-infect: "Пример: /disease infect Gaben - попытка поразить Гейба действием темной энергии."
 
   # Сообщение о болезни
   disease: "You are ill..."
+  # disease: "Ваше тело подвержено странным энергиям, и вы чувствуете себя не в лучшем состоянии. Темная сила начинает овладевать вами."
 
   # Если проверенный предметом игрок заражен
   # Принимает <player> тег
   checkedPlayer-isInfected: "<player> is infected."
+  # checkedPlayer-isInfected: "Тело <player> пронизано темной энергией."
 
   # Если проверенный предметов игрок здоров
   # Принимает <player> тег
   checkedPlayer-notInfected: "<player> is not infected."
+  # checkedPlayer-notInfected: "Тело <player> свободно от темной силы."
 
   no-permission: "<dark_red>No permission to execute command</dark_red>"
+  # no-permission: "Вам не дано разрешение на использование этой команды. Темные силы остаются непокоренными."
 
 chances:
   # Шанс быть зараженным от удара эндермена
